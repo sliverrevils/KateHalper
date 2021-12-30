@@ -185,11 +185,11 @@ function addShotArr(ID, textTime) {
 
 
 //shots    -----------------ОТОБРАЗИТЬ УДАРЫ И ВЫЧЕСЛИТЬ ССЫЛКУ ПО ТАЙМКОДУ
-function showShots(arr){
-   let a= arr.reduce((acc,item)=>{item})
-   console.log(a);
-return a;
-}
+// function showShots(arr){
+//    let a= arr.reduce((acc,item)=>{item})
+//    console.log(a);
+// return a;
+// }
 
 
 
@@ -206,21 +206,31 @@ let secs=(+arr[0]*60*60)+(+arr[2]*60)+(+arr[4]);
 return `${videoLink}?t=${secs}s`
 }
 
-https://www.youtube.com/watch?v=bVEjOd6_y4Y
-https://youtu.be/bVEjOd6_y4Y?t=950
+
+
+
+
+
+
+
+// https://www.youtube.com/watch?v=bVEjOd6_y4Y
+// https://youtu.be/bVEjOd6_y4Y?t=950
 
 
 // ----------------------SHOTS LIST 
-function addShotsList(link,id,arr){
+function addShotsList(link,id,arr,item){
   //  console.log(link,id,arr);
     let $items=document.querySelector('#'+id);
     console.log($items);
     arr&&arr.map(e=>$items.innerHTML+=`
     <h5>
     <a href="${calcTimeCode(link,e)}" target="_blank">${e}</a>
+    <button id="${item.ID}" name="aim">AIM</button>
     </h5>
     `)
 }
+
+
 
 
 //-------------------------------------------LIST RENDER  FUNC (from array)
@@ -228,6 +238,8 @@ function listRender() {
     $ListItems.innerHTML = '';
     listArr.map((item,index) => {
         $ListItems.innerHTML += // ITEM HTML
+
+        // <button id="${item.ID}" name="aim">AIM</button>
             `
     <p class="itemOfList">
     <h4>
@@ -235,7 +247,7 @@ function listRender() {
        "${item.description}"
        ${item.aim ?textSpin(item.aim ): ' '}
        <button id="${item.ID}" name="shot">ADD SHOT</button>
-     <button id="${item.ID}" name="aim">AIM</button>
+    
      <button id="${item.ID}" name="del" >X</button> 
      <br>
      <div class="shots" id="Shots${index}"> </div>
@@ -243,7 +255,7 @@ function listRender() {
      </p>
      <hr> 
     `;
-    addShotsList(item.link,`Shots${index}`,item.shots);
+    addShotsList(item.link,`Shots${index}`,item.shots,item); // VIDEO , ID DIV , ARR, item
     })
 }
 //ADD BTN
