@@ -1,0 +1,61 @@
+body{
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+}
+.MainWin{
+    
+    width: 800px;
+    height: 100vh;
+    background-color: rgb(232, 149, 149);
+}
+.AddItemBlock{
+    display: flex;
+
+background: linear-gradient(rgb(70, 4, 146),rgb(71, 46, 214),rgb(43, 111, 237));
+padding: 10px 30px;
+}
+
+.AddItemBlock input{
+    margin: 0 20px;
+    padding: 0;
+    border:0;
+    padding: 5px 0;
+
+    border-radius:5px;
+}
+.AddItemBlock input:hover{
+    border: 2px solid rgb(255, 255, 255);
+}
+.AddItemBlock input::placeholder{
+    color: gray;
+    opacity: .6;
+}
+
+input[type="button"]{
+    background-color: yellowgreen;
+    border:0;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.ListItems{
+    padding: 0 30px;
+    
+}a{
+    text-decoration: none;
+    color: rgb(101, 101, 196);
+}
+
+.shotTime{
+    background-color: blue;
+    padding:10px  20px;
+    display: none;
+    position: absolute;
+}
+
+
+

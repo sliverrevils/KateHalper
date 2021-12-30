@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KatyHalper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="style/index.css">
+    <link rel="stylesheet" href="style/spin_aim.css">
+</head>
+<body>
+    <div class="MainWin">
+        <div class="AddItemBlock">
+            <input type="url" id="AddLinkInput" placeholder="# type video link">
+            <input type="text" id="AddDescriptionInput" placeholder="# type description for video">
+            <div id="spin_aim_btn">aim</div>
+            <input type="button" id="AddItemBtn" value="Add">
+            
+        </div>
+        <div class="ListItems">
+            <a href="" target="_blank"></a>
+            <input type="checkbox">
+        </div>        
+    </div>
+
+    <div class="ball">
+        <div class="ball_line"> 
+            <div class="aim_block" id="top_left"><div class="ballAim"></div></div>
+            <div class="aim_block" id="top"><div class="ballAim"></div></div>
+            <div class="aim_block" id="top_right"><div class="ballAim"></div></div>
+        </div>
+        <div class="ball_line"> 
+            <div class="aim_block" id="left"><div class="ballAim"></div></div>
+            <div class="aim_block" id="center"> <div class="ballAim"></div> </div>
+            <div class="aim_block" id="right"><div class="ballAim"></div></div>
+        </div>
+        <div class="ball_line"> 
+            <div class="aim_block" id="bottom_left"><div class="ballAim"></div></div>
+            <div class="aim_block" id="bottom"><div class="ballAim"></div></div>
+            <div class="aim_block" id="bottom_right"><div class="ballAim"></div></div>
+        </div>
+    </div>
+    
+    <div class="shotTime">
+        <input type="text" placeholder="#put time" class="shotTimeInput">
+        <button class="AddTimeShot"> Add</button>
+        <button class="close_shotTime"> X</button>
+    </div>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>
