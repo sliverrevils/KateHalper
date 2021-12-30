@@ -5,6 +5,7 @@ body{
     justify-content: center;
     align-items: center;
     font-family: 'Roboto', sans-serif;
+    transition: 1000;
     
 }
 .MainWin{
@@ -16,8 +17,10 @@ body{
 .AddItemBlock{
     display: flex;
 
-background: linear-gradient(rgb(70, 4, 146),rgb(71, 46, 214),rgb(43, 111, 237));
+background: linear-gradient(rgb(85, 47, 253),rgb(255, 255, 255));
 padding: 10px 30px;
+border-radius: 5px;
+margin-bottom: 5px;
 }
 
 .AddItemBlock input{
@@ -33,7 +36,7 @@ padding: 10px 30px;
 }
 .AddItemBlock input::placeholder{
     color: gray;
-    opacity: .6;
+    opacity: .3;
 }
 
 input[type="button"]{
@@ -45,13 +48,17 @@ input[type="button"]{
 
 button[name="del_shot"]{
     background-color: rgb(243, 10, 10);
-    opacity: .6;
+    opacity: .4;
     float:right;
     border: 0;
     border-radius:5px;
     color: white;
     transform: translateY(8%);
     box-shadow: 1px 1px 5px black;
+}
+button[name="del_shot"]:hover{
+    opacity: .8;
+    box-shadow: 0px 0px 0px black;
 }
 
 button[name="del"]{
@@ -62,12 +69,18 @@ button[name="del"]{
     
     color: rgb(0, 0, 0);
     box-shadow: 1px 1px 5px black;
+    opacity: .3;
    
+}
+button[name="del"]:hover{
+    box-shadow: 0px 0px 0px black;
+    background-color:black;
+    color: white;
 }
 
 .ListItems{
     padding: 0 10px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     
 }a{
     text-decoration: none;
@@ -107,6 +120,7 @@ button{
     /* transform: translateY(30px); */
     font-weight: 600;
     opacity: .7;
+    cursor: pointer;
 }
 
 .videoLink{
@@ -125,9 +139,16 @@ button{
     border-radius:5px;
     padding: 2px 10px;
     margin: 3px 10px;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, .3);
+    width: 80%;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, .2);
 }
 
 .add_shot{
     padding: 3px 6px;
+    background-color:seagreen;
+    cursor:cell;
+}
+.add_shot:hover{
+    transition: 300ms;
+    transform: scaleX(120%);
 }
