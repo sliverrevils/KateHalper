@@ -280,10 +280,7 @@ function listRender() {
        "${item.description}"
        ${item.aim ? textSpin(item.aim) : ' '}
        </div>
-       <button id="${item.ID}" name="shot" class="add_shot">➕🏆</button>
-       
-    
-     
+       <button id="${item.ID}" name="shot" class="add_shot">➕🏆</button>    
      <br>
      <div class="shots" id="Shots${index}"> </div>     
      </div>
