@@ -136,6 +136,9 @@ listRender();
 //ADD TO ARR FUNC
 function addItem(link, description) {
     listArr.push({ ID: rndID(), link, description });
+
+    $AddLinkInput.value='';
+    $AddDescriptionInput.value='';
     listRender();
     setST();
 }
@@ -250,7 +253,7 @@ function addShotsList(link, id, arr, item) {
     <button id="${item.ID}" alt="${index}" name="del_shot">X</button>  
     <a href="${link}" target="_blank">${el.time}</a>
     
-    <button id="${item.ID}" alt="${index}" name="aim"> винт</button>   
+    <button id="${item.ID}" alt="${index}" name="aim"> 🎯</button>   
      ${textSpin(item.shots[index].aim) || "не указано"}
    
     </div>
@@ -269,24 +272,22 @@ function listRender() {
 
             // <button id="${item.ID}" name="aim">AIM</button>
             `
-    <p class="itemOfList">
-    <h4>
+    <div class="itemOfList">
+    
     <div class="videoLink">
     <button id="${item.ID}" name="del" >X </button> 
     <a href="${item.link}" target="_blank">${item.link}</a>
        "${item.description}"
        ${item.aim ? textSpin(item.aim) : ' '}
        </div>
-       <button id="${item.ID}" name="shot">Добавить удар</button>
+       <button id="${item.ID}" name="shot" class="add_shot">➕🏆</button>
        
     
      
      <br>
-     <div class="shots" id="Shots${index}"> </div>
-     </h4> 
-     </p>
-     <hr> 
-    `;
+     <div class="shots" id="Shots${index}"> </div>     
+     </div>
+     `;
         addShotsList(item.link, `Shots${index}`, item.shots, item); // VIDEO , ID DIV , ARR, item
     })
 }
