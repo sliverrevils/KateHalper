@@ -23,13 +23,14 @@ const $SHOTTIME=document.querySelector('.shotTime');
 
 
 //-----------------------------------------------      SELECT SPIN FUNC
-function showBall(id) {
-
+function showBall(id,elOfArr) {
+    
     $BALL.style.display = "block";// SHOW BALL DIV
     const $AIM_BLOCKS = document.querySelectorAll('.aim_block'); // SELECT ALL BLOCKS 
 
     function aimSelect() {
-        addAim(id, this.id); // ADD SELECTED SPIN ON ARRAY & LS        
+        
+        addAim(id, this.id,elOfArr); // ADD SELECTED SPIN ON ARRAY & LS        
         $BALL.style.display = "none"; // HIDE BALL DIV
         Array.from($AIM_BLOCKS).map(item => { // CLEAR LISTENERS ON BALL BLOCKS
             item.removeEventListener('click', aimSelect);
@@ -73,10 +74,11 @@ const rndID = (name = "item") => `id_${name}_${Math.random()}`;
 //CLICKS CHECKER
 document.addEventListener('click', e => {
     e.target.name == "del" && delItem(e.target.id); // del buttons
-    e.target.name == "aim" && showBall(e.target.id);// AIM buttons
+                                                    //так находим элемент alt в котором передаем идекс в массиве...
+    e.target.name == "aim" && showBall(e.target.id,e.target.attributes.alt.nodeValue);// AIM buttons
     e.target.name == "shot" && addShotTime(e);// AIM buttons
+    e.target.name == "del_shot" && delShot(e.target.id,e.target.attributes.alt.nodeValue);// DEL SHOT
 })
-
 
 
 
@@ -89,7 +91,7 @@ function addShotTime(e){
    $SHOTTIME.style.display='block';
    $SHOTTIME.style.top=e.clientY+'px';
    $SHOTTIME.style.left=e.clientX+'px';
-   console.log(e);
+   //console.log(e);
 
    function addShot(){    
     let $text=document.querySelector('.shotTimeInput');   
@@ -129,7 +131,7 @@ const getST = () => JSON.parse(localStorage.getItem("list"));
 //INIT ARR
 const listArr = getST() || [];
 listRender();
-console.log(listArr);
+//console.log(listArr);
 
 
 //ADD TO ARR FUNC
@@ -149,16 +151,27 @@ function delItem(ID) {
 }
 
 //ADD SPIN FUNC
-function addAim(ID, btnId) {
-    console.log(ID, btnId);
+function addAim(ID, spin, elOfArr) {
+    //console.log("AIM",ID, spin,elOfArr);
     const obj = listArr.find(item => item.ID == ID);// find obj in arr
     const itemIndex = listArr.indexOf(obj);// get index of item in array
-    listArr[itemIndex].aim = btnId;
-
+    listArr[itemIndex].shots[elOfArr].aim= spin;
     listRender(); //update list  
     setST();      // save to ls
 }
 
+// ---------   DEL SHOT
+function delShot(idVideo,elOfArr){
+    const obj = listArr.find(item => item.ID == idVideo);// find obj in arr
+    const itemIndex = listArr.indexOf(obj);// get index of item in array
+
+    listArr[itemIndex].shots.splice(elOfArr,1);
+
+    listRender(); //update list  
+    setST();      // save to ls
+    
+
+}
 
 
 
@@ -171,7 +184,7 @@ function addShotArr(ID, textTime) {
     const obj = listArr.find(item => item.ID == ID);// find obj in arr
     const itemIndex = listArr.indexOf(obj);// get index of item in array
     listArr[itemIndex].shots??(listArr[itemIndex].shots=[]);
-    listArr[itemIndex].shots.push(textTime);
+    listArr[itemIndex].shots.push({time:textTime,aim:null});
     console.log(listArr[itemIndex].shots);
     console.log(listArr);
     listRender(); //update list  
@@ -222,12 +235,21 @@ function addShotsList(link,id,arr,item){
   //  console.log(link,id,arr);
     let $items=document.querySelector('#'+id);
     console.log($items);
-    arr&&arr.map(e=>$items.innerHTML+=`
-    <h5>
-    <a href="${calcTimeCode(link,e)}" target="_blank">${e}</a>
-    <button id="${item.ID}" name="aim">AIM</button>
+    arr&&arr.map((el,index)=>{
+    
+    $items.innerHTML+=`
+    <div class="shot_item"> 
+    <h5>    
+    <a href="${link}" target="_blank">${el.time}</a>
+    винт : ${textSpin(item.shots[index].aim)||"не указано"}
+    <button id="${item.ID}" alt="${index}" name="aim">AIM</button>
+
+
+    <button id="${item.ID}" alt="${index}" name="del_shot">X</button>
     </h5>
-    `)
+    </div>
+    `}
+    )
 }
 
 
