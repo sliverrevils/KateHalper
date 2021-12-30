@@ -8,7 +8,13 @@ const $AddItemBtn = document.querySelector("#AddItemBtn");
 
 const $AIM_BTN = document.querySelector('#spin_aim_btn');
 const $BALL = document.querySelector('.ball');
-const $SHOTTIME=document.querySelector('.shotTime');
+const $SHOTTIME = document.querySelector('.shotTime');
+
+const $BLACK = document.querySelector('.BlackScreen');
+
+
+const blackScreeToggle = () => $BLACK.classList.toggle("BlackOff");
+
 
 
 //01 час 26 мин 23 сек
@@ -19,18 +25,19 @@ const $SHOTTIME=document.querySelector('.shotTime');
 
 
 
-//------------------------AIM
 
+//-----------------------------------------------      RENDER SPIN WIN 
+function showBall(id, elOfArr) {
+    blackScreeToggle();
 
-//-----------------------------------------------      SELECT SPIN FUNC
-function showBall(id,elOfArr) {
-    
-    $BALL.style.display = "block";// SHOW BALL DIV
+    $BALL.style.display = "block";// SHOW BALL WINDOW
+    $BALL.style.left='50%';
+    $BALL.style.zIndex = '10';
     const $AIM_BLOCKS = document.querySelectorAll('.aim_block'); // SELECT ALL BLOCKS 
 
     function aimSelect() {
-        
-        addAim(id, this.id,elOfArr); // ADD SELECTED SPIN ON ARRAY & LS        
+
+        addAim(id, this.id, elOfArr); // ADD SELECTED SPIN ON ARRAY & LS        
         $BALL.style.display = "none"; // HIDE BALL DIV
         Array.from($AIM_BLOCKS).map(item => { // CLEAR LISTENERS ON BALL BLOCKS
             item.removeEventListener('click', aimSelect);
@@ -49,17 +56,17 @@ function showBall(id,elOfArr) {
 
 
 // TEXT OF SPIN
-const textSpin=spin=>{  
-    spinsObj={
-        'top_left':'верхний левый',
-        'top':"верхний",
-        'top_right':"верхний правый",
-        'left':'влево',
-        'center':'центр',
-        'right':'вправо',
-        'bottom_left':'нижний левый',
-        'bottom':'нижний',
-        'bottom_right':'нижний правый',
+const textSpin = spin => {
+    spinsObj = {
+        'top_left': 'верхний левый',
+        'top': "верхний",
+        'top_right': "верхний правый",
+        'left': 'влево',
+        'center': 'центр',
+        'right': 'вправо',
+        'bottom_left': 'нижний левый',
+        'bottom': 'нижний',
+        'bottom_right': 'нижний правый',
     }
     return spinsObj[spin];
 }
@@ -74,10 +81,10 @@ const rndID = (name = "item") => `id_${name}_${Math.random()}`;
 //CLICKS CHECKER
 document.addEventListener('click', e => {
     e.target.name == "del" && delItem(e.target.id); // del buttons
-                                                    //так находим элемент alt в котором передаем идекс в массиве...
-    e.target.name == "aim" && showBall(e.target.id,e.target.attributes.alt.nodeValue);// AIM buttons
+    //так находим элемент alt в котором передаем идекс в массиве...
+    e.target.name == "aim" && showBall(e.target.id, e.target.attributes.alt.nodeValue);// AIM buttons
     e.target.name == "shot" && addShotTime(e);// AIM buttons
-    e.target.name == "del_shot" && delShot(e.target.id,e.target.attributes.alt.nodeValue);// DEL SHOT
+    e.target.name == "del_shot" && delShot(e.target.id, e.target.attributes.alt.nodeValue);// DEL SHOT
 })
 
 
@@ -85,53 +92,45 @@ document.addEventListener('click', e => {
 
 
 // ------------------                                        ADD SHOTs
-function addShotTime(e){
-    let $addBtn=document.querySelector('.AddTimeShot');
-
-   $SHOTTIME.style.display='block';
-   $SHOTTIME.style.top=e.clientY+'px';
-   $SHOTTIME.style.left=e.clientX+'px';
-   //console.log(e);
-
-   function addShot(){    
-    let $text=document.querySelector('.shotTimeInput');   
-    addShotArr(e.target.id,$text.value);
+function addShotTime(e) {
+    let $addBtn = document.querySelector('.AddTimeShot');
+    blackScreeToggle();
+    $SHOTTIME.style.zIndex = '10';
+    $SHOTTIME.style.display = 'block';
+    $SHOTTIME.style.top = e.clientY + 'px';
+    $SHOTTIME.style.left = e.clientX + 'px';
 
 
-    $addBtn.removeEventListener('click',addShot);
-    $text.value='';
-    $SHOTTIME.style.display='none';
-   }
+    function addShot() {
+        let $text = document.querySelector('.shotTimeInput');
+        addShotArr(e.target.id, $text.value);
 
 
-
-   $addBtn.addEventListener('click',addShot);
-   
+        $addBtn.removeEventListener('click', addShot);
+        $text.value = '';
+        $SHOTTIME.style.display = 'none';
+    }
+    $addBtn.addEventListener('click', addShot);
 
 }
-
-document.querySelector('.close_shotTime').addEventListener('click',()=>$SHOTTIME.style.display='none');
-
-
-
-
-
-
-
-
+// CLOSING ADD SHOT MENU 
+document.querySelector('.close_shotTime').addEventListener('click', () => {
+    $SHOTTIME.style.display = 'none';
+    blackScreeToggle();
+});
 
 // RIGHT CLICK MENU RESET
-document.addEventListener('contextmenu', e => e.preventDefault()); 
+document.addEventListener('contextmenu', e => e.preventDefault());
 
 
-//LOCAL STORAGE FUNCS
+//-------------------------------------------LOCAL STORAGE FUNCS
 const setST = () => localStorage.setItem("list", JSON.stringify(listArr));
 const getST = () => JSON.parse(localStorage.getItem("list"));
 
-//INIT ARR
+//-------------------------------------------INIT ARR
 const listArr = getST() || [];
 listRender();
-//console.log(listArr);
+
 
 
 //ADD TO ARR FUNC
@@ -140,6 +139,7 @@ function addItem(link, description) {
     listRender();
     setST();
 }
+
 //DEL FROM ARR FUNC
 function delItem(ID) {
     const obj = listArr.find(item => item.ID == ID);// find obj in arr
@@ -150,26 +150,31 @@ function delItem(ID) {
     setST();      // save to ls
 }
 
+
+
+
 //ADD SPIN FUNC
 function addAim(ID, spin, elOfArr) {
     //console.log("AIM",ID, spin,elOfArr);
     const obj = listArr.find(item => item.ID == ID);// find obj in arr
     const itemIndex = listArr.indexOf(obj);// get index of item in array
-    listArr[itemIndex].shots[elOfArr].aim= spin;
+    listArr[itemIndex].shots[elOfArr].aim = spin;
+
+    blackScreeToggle();
     listRender(); //update list  
     setST();      // save to ls
 }
 
 // ---------   DEL SHOT
-function delShot(idVideo,elOfArr){
+function delShot(idVideo, elOfArr) {
     const obj = listArr.find(item => item.ID == idVideo);// find obj in arr
     const itemIndex = listArr.indexOf(obj);// get index of item in array
 
-    listArr[itemIndex].shots.splice(elOfArr,1);
+    listArr[itemIndex].shots.splice(elOfArr, 1);
 
     listRender(); //update list  
     setST();      // save to ls
-    
+
 
 }
 
@@ -180,13 +185,15 @@ function delShot(idVideo,elOfArr){
 // ADD SHOT FUNC
 
 function addShotArr(ID, textTime) {
-    
+
     const obj = listArr.find(item => item.ID == ID);// find obj in arr
     const itemIndex = listArr.indexOf(obj);// get index of item in array
-    listArr[itemIndex].shots??(listArr[itemIndex].shots=[]);
-    listArr[itemIndex].shots.push({time:textTime,aim:null});
-    console.log(listArr[itemIndex].shots);
-    console.log(listArr);
+    listArr[itemIndex].shots ?? (listArr[itemIndex].shots = []);
+    listArr[itemIndex].shots.push({ time: textTime, aim: null });
+    // console.log(listArr[itemIndex].shots);
+    // console.log(listArr);
+
+    blackScreeToggle();
     listRender(); //update list  
     setST();      // save to ls
 }
@@ -212,11 +219,11 @@ function addShotArr(ID, textTime) {
 
 
 // -------------------------  CALC VIDEO TIMECODE
-function calcTimeCode(videoLink,textCode){
-let arr=textCode.split(' ');
-console.log(arr[0],arr[2],arr[4]);
-let secs=(+arr[0]*60*60)+(+arr[2]*60)+(+arr[4]);
-return `${videoLink}?t=${secs}s`
+function calcTimeCode(videoLink, textCode) {
+    let arr = textCode.split(' ');
+    console.log(arr[0], arr[2], arr[4]);
+    let secs = (+arr[0] * 60 * 60) + (+arr[2] * 60) + (+arr[4]);
+    return `${videoLink}?t=${secs}s`
 }
 
 
@@ -231,22 +238,21 @@ return `${videoLink}?t=${secs}s`
 
 
 // ----------------------SHOTS LIST 
-function addShotsList(link,id,arr,item){
-  //  console.log(link,id,arr);
-    let $items=document.querySelector('#'+id);
+function addShotsList(link, id, arr, item) {
+    //  console.log(link,id,arr);
+    let $items = document.querySelector('#' + id);
     console.log($items);
-    arr&&arr.map((el,index)=>{
-    
-    $items.innerHTML+=`
+    arr && arr.map((el, index) => {
+
+        $items.innerHTML += `
     <div class="shot_item"> 
-    <h5>    
+    
+    <button id="${item.ID}" alt="${index}" name="del_shot">X</button>  
     <a href="${link}" target="_blank">${el.time}</a>
-    винт : ${textSpin(item.shots[index].aim)||"не указано"}
-    <button id="${item.ID}" alt="${index}" name="aim">AIM</button>
-
-
-    <button id="${item.ID}" alt="${index}" name="del_shot">X</button>
-    </h5>
+    
+    <button id="${item.ID}" alt="${index}" name="aim"> винт</button>   
+     ${textSpin(item.shots[index].aim) || "не указано"}
+   
     </div>
     `}
     )
@@ -258,26 +264,30 @@ function addShotsList(link,id,arr,item){
 //-------------------------------------------LIST RENDER  FUNC (from array)
 function listRender() {
     $ListItems.innerHTML = '';
-    listArr.map((item,index) => {
+    listArr.map((item, index) => {
         $ListItems.innerHTML += // ITEM HTML
 
-        // <button id="${item.ID}" name="aim">AIM</button>
+            // <button id="${item.ID}" name="aim">AIM</button>
             `
     <p class="itemOfList">
     <h4>
+    <div class="videoLink">
+    <button id="${item.ID}" name="del" >X </button> 
     <a href="${item.link}" target="_blank">${item.link}</a>
        "${item.description}"
-       ${item.aim ?textSpin(item.aim ): ' '}
-       <button id="${item.ID}" name="shot">ADD SHOT</button>
+       ${item.aim ? textSpin(item.aim) : ' '}
+       </div>
+       <button id="${item.ID}" name="shot">Добавить удар</button>
+       
     
-     <button id="${item.ID}" name="del" >X</button> 
+     
      <br>
      <div class="shots" id="Shots${index}"> </div>
      </h4> 
      </p>
      <hr> 
     `;
-    addShotsList(item.link,`Shots${index}`,item.shots,item); // VIDEO , ID DIV , ARR, item
+        addShotsList(item.link, `Shots${index}`, item.shots, item); // VIDEO , ID DIV , ARR, item
     })
 }
 //ADD BTN

@@ -10,7 +10,7 @@ body{
     
     width: 800px;
     height: 100vh;
-    background-color: rgb(232, 149, 149);
+    background-color: rgb(255, 255, 255);
 }
 .AddItemBlock{
     display: flex;
@@ -28,7 +28,7 @@ padding: 10px 30px;
     border-radius:5px;
 }
 .AddItemBlock input:hover{
-    border: 2px solid rgb(255, 255, 255);
+    
 }
 .AddItemBlock input::placeholder{
     color: gray;
@@ -36,10 +36,28 @@ padding: 10px 30px;
 }
 
 input[type="button"]{
-    background-color: yellowgreen;
+    background-color: rgb(83, 238, 148);
     border:0;
     border-radius: 5px;
     padding: 5px;
+}
+
+button[name="del_shot"]{
+    background-color: rgb(247, 71, 71);
+    float:left;
+    border: 0;
+    border-radius:5px;
+    color: white;
+    transform: translateY(8%);
+}
+
+button[name="del"]{
+    background-color: rgb(247, 71, 71);
+    float:left;
+    border: 0;
+    border-radius:5px;
+    color: white;
+    transform: translateY(8%);
 }
 
 .ListItems{
@@ -47,7 +65,9 @@ input[type="button"]{
     
 }a{
     text-decoration: none;
-    color: rgb(101, 101, 196);
+    color: rgba(74, 16, 189, 0.604);
+    font-size: smaller;
+    font-weight: 100;
 }
 
 .shotTime{
@@ -57,5 +77,36 @@ input[type="button"]{
     position: absolute;
 }
 
+.BlackScreen{
+    background-color: black;
+    opacity: .8;
+    display: block;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    z-index: 5;
+}
+.BlackOff{
+    display: none;
+}
 
+button{
+    background-color: rgb(59, 28, 238);
+    color: white;
+    margin: 5px;
+    border-radius:5px;
+    border:0;
+    transform: translateY(8%);
+    font-weight: 600;
+    opacity: .7;
+}
 
+.videoLink{
+    background-color: rgb(230, 230, 230);
+}
+.shots{
+    transform: translateX(40px);
+    
+}
