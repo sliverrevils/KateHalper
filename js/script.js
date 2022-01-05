@@ -18,6 +18,7 @@ const blackScreeToggle = () => $BLACK.classList.toggle("BlackOff");
 
 
 //01 час 26 мин 23 сек
+//00 час : 06 мин : 48 сек
 //https://youtu.be/Qq4j1LtCdww?list=RDQq4j1LtCdww&t=100
 
 
@@ -204,6 +205,7 @@ function addShotArr(ID, textTime) {
 
 
 //00 час 26 мин 23 сек
+// 00 час : 06 мин : 48 сек
 //original link https://www.youtube.com/watch?v=sWd1qoZ-DNg
 //time link     https://youtu.be/sWd1qoZ-DNg?t=14
 
@@ -211,7 +213,8 @@ function addShotArr(ID, textTime) {
 function calcTimeCode(videoLink, textCode) {
     let arr = textCode.split(' ');
     console.log(arr[0], arr[2], arr[4]);
-    let secs = (+arr[0] * 60 * 60) + (+arr[2] * 60) + (+arr[4]);
+    console.log("ARR",arr);
+    let secs = (+arr[0] * 60 * 60) + (+arr[3] * 60) + (+arr[6]);
 
     
     let videoName=videoLink.split('=');
