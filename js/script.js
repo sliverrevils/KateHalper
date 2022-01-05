@@ -13,15 +13,31 @@ const $SHOTTIME = document.querySelector('.shotTime');
 const $BLACK = document.querySelector('.BlackScreen');
 
 
-const blackScreeToggle = () => $BLACK.classList.toggle("BlackOff");
+const blackScreeToggle = (e) => {!e?$BLACK.classList.add("BlackOff"):$BLACK.classList.remove("BlackOff")};
 
 
 
-//01 час 26 мин 23 сек
-//00 час : 06 мин : 48 сек
-//https://youtu.be/Qq4j1LtCdww?list=RDQq4j1LtCdww&t=100
+//              ADD INPUT RIGHT-CLICK PASTE CLIPBOARD
+
+const pasteClipboard=e=>navigator.clipboard.readText().then(text=>e.target.value=(text==''||text==' '||text==null||text==NaN)?"Скопируй текст":text);
+
+$AddLinkInput.addEventListener('contextmenu',e=>pasteClipboard(e));
+
+$AddDescriptionInput.addEventListener('contextmenu',e=>pasteClipboard(e));
+    //e.target.value="click";
+$SHOTTIME.addEventListener('contextmenu',e=>pasteClipboard(e))
+
+// let clip='';
+// window.focus&&navigator.clipboard.readText().then(text=>$CLIP_STATUS.innerHTML=text);
 
 
+
+
+// setInterval(()=>{
+//     navigator.clipboard.readText().then(text=>$CLIP_STATUS.innerHTML=text);
+
+// },1000);
+//$CLIP_STATUS.innerHTML="dsd";
 
 
 
@@ -29,7 +45,7 @@ const blackScreeToggle = () => $BLACK.classList.toggle("BlackOff");
 
 //-----------------------------------------------      RENDER SPIN WIN 
 function showBall(id, elOfArr) {
-    blackScreeToggle();
+    blackScreeToggle(true);
 
     $BALL.style.display = "block";// SHOW BALL WINDOW
     $BALL.style.left='50%';
@@ -92,10 +108,26 @@ document.addEventListener('click', e => {
 
 
 
+// RIGHT CLICK ADD TIME SHOT
+document.addEventListener('contextmenu',e=>{
+e.target.name=="shot"&&(async()=>{
+    let clip='none';
+    await navigator.clipboard.readText().then(text => clip=text);
+
+    addShotArr(e.target.id,clip);
+    console.log("RIGHT CLICK ON ADD_SHOT");
+})();
+
+})
+
+
+
+
+
 // ------------------                                        ADD SHOTs
 function addShotTime(e) {
     let $addBtn = document.querySelector('.AddTimeShot');
-    blackScreeToggle();
+    blackScreeToggle(true);
     $SHOTTIME.style.zIndex = '10';
     $SHOTTIME.style.display = 'block';
     $SHOTTIME.style.top = e.clientY + 'px';
@@ -117,7 +149,7 @@ function addShotTime(e) {
 // CLOSING ADD SHOT MENU 
 document.querySelector('.close_shotTime').addEventListener('click', () => {
     $SHOTTIME.style.display = 'none';
-    blackScreeToggle();
+    blackScreeToggle(false);
 });
 
 // RIGHT CLICK MENU RESET
@@ -164,7 +196,7 @@ function addAim(ID, spin, elOfArr) {
     const itemIndex = listArr.indexOf(obj);// get index of item in array
     listArr[itemIndex].shots[elOfArr].aim = spin;
 
-    blackScreeToggle();
+    blackScreeToggle(false);
     listRender(); //update list  
     setST();      // save to ls
 }
@@ -197,7 +229,7 @@ function addShotArr(ID, textTime) {
     // console.log(listArr[itemIndex].shots);
     // console.log(listArr);
 
-    blackScreeToggle();
+    blackScreeToggle(false);
     listRender(); //update list  
     setST();      // save to ls
 }
@@ -250,7 +282,7 @@ function addShotsList(link, id, arr, item) {
     <a href="${calcTimeCode(link,el.time)}" target="_blank">${el.time}</a>
     
     <button id="${item.ID}" alt="${index}" name="aim" ${textSpin(item.shots[index].aim)||"style=background:red"}> 🎯</button>   
-     ${textSpin(item.shots[index].aim) || "не указано"}
+     ${textSpin(item.shots[index].aim) || "..."}
    
     </div>
     `}
