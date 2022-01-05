@@ -203,30 +203,22 @@ function addShotArr(ID, textTime) {
 
 
 
-
-
-
-
-//shots    -----------------ОТОБРАЗИТЬ УДАРЫ И ВЫЧЕСЛИТЬ ССЫЛКУ ПО ТАЙМКОДУ
-// function showShots(arr){
-//    let a= arr.reduce((acc,item)=>{item})
-//    console.log(a);
-// return a;
-// }
-
-
-
 //00 час 26 мин 23 сек
-//https://youtu.be/v_slHo6buXk?t=647 -site
-//https://www.youtube.com/watch?v=v_slHo6buXk?t=1583s  - my
-
+//original link https://www.youtube.com/watch?v=sWd1qoZ-DNg
+//time link     https://youtu.be/sWd1qoZ-DNg?t=14
 
 // -------------------------  CALC VIDEO TIMECODE
 function calcTimeCode(videoLink, textCode) {
     let arr = textCode.split(' ');
     console.log(arr[0], arr[2], arr[4]);
     let secs = (+arr[0] * 60 * 60) + (+arr[2] * 60) + (+arr[4]);
-    return `${videoLink}?t=${secs}s`
+
+    
+    let videoName=videoLink.split('=');
+    
+
+    return `https://youtu.be/${videoName[1]}?t=${secs}s`
+    
 }
 
 
@@ -251,9 +243,10 @@ function addShotsList(link, id, arr, item) {
     <div class="shot_item"> 
     
     <button id="${item.ID}" alt="${index}" name="del_shot">X</button>  
-    <a href="${link}" target="_blank">${el.time}</a>
+
+    <a href="${calcTimeCode(link,el.time)}" target="_blank">${el.time}</a>
     
-    <button id="${item.ID}" alt="${index}" name="aim"> 🎯</button>   
+    <button id="${item.ID}" alt="${index}" name="aim" ${textSpin(item.shots[index].aim)||"style=background:red"}> 🎯</button>   
      ${textSpin(item.shots[index].aim) || "не указано"}
    
     </div>

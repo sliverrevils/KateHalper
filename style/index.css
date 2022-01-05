@@ -31,13 +31,12 @@ margin-bottom: 5px;
 
     border-radius:5px;
 }
-.AddItemBlock input:hover{
-    
-}
+
 .AddItemBlock input::placeholder{
     color: gray;
     opacity: .3;
 }
+
 
 input[type="button"]{
     background-color: rgb(83, 238, 148);
@@ -90,12 +89,31 @@ button[name="del"]:hover{
     font-weight: 100;
 }
 
+
+
+/* ADD SHOT BLOCK */
 .shotTime{
-    background-color: blue;
+    background-color: rgb(253, 253, 253);
     padding:10px  20px;
+    border-radius:10px;
     display: none;
     position: absolute;
 }
+.shotTime input::placeholder{
+    color: gray;
+    opacity: .3;
+}
+.AddTimeShot{
+    background-color:rgb(13, 131, 9);
+}
+
+.close_shotTime{
+    background-color:red;
+}
+
+
+
+
 
 .BlackScreen{
     background-color: black;
@@ -153,3 +171,4 @@ button{
     transition: 300ms;
     transform: scaleX(120%);
 }
+
