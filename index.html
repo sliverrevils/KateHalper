@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="style/spin_aim.css">
 </head>
 <body>
+    <div class="BlackScreen BlackOff"></div>
+
+    
     <div class="MainWin">
         <div class="AddItemBlock">
             <input type="url" id="AddLinkInput" placeholder="#Ссылка на видео">
@@ -25,26 +28,31 @@
         <div class="ListItems">
             <a href="" target="_blank"></a>
             <input type="checkbox">
-        </div>        
+        </div>  
+        
+        
+        <div class="ball">
+            <div class="ball_line"> 
+                <div class="aim_block" id="top_left"><div class="ballAim"></div></div>
+                <div class="aim_block" id="top"><div class="ballAim"></div></div>
+                <div class="aim_block" id="top_right"><div class="ballAim"></div></div>
+            </div>
+            <div class="ball_line"> 
+                <div class="aim_block" id="left"><div class="ballAim"></div></div>
+                <div class="aim_block" id="center"> <div class="ballAim"></div> </div>
+                <div class="aim_block" id="right"><div class="ballAim"></div></div>
+            </div>
+            <div class="ball_line"> 
+                <div class="aim_block" id="bottom_left"><div class="ballAim"></div></div>
+                <div class="aim_block" id="bottom"><div class="ballAim"></div></div>
+                <div class="aim_block" id="bottom_right"><div class="ballAim"></div></div>
+            </div>
+        </div>
+    
+        
     </div>
 
-    <div class="ball">
-        <div class="ball_line"> 
-            <div class="aim_block" id="top_left"><div class="ballAim"></div></div>
-            <div class="aim_block" id="top"><div class="ballAim"></div></div>
-            <div class="aim_block" id="top_right"><div class="ballAim"></div></div>
-        </div>
-        <div class="ball_line"> 
-            <div class="aim_block" id="left"><div class="ballAim"></div></div>
-            <div class="aim_block" id="center"> <div class="ballAim"></div> </div>
-            <div class="aim_block" id="right"><div class="ballAim"></div></div>
-        </div>
-        <div class="ball_line"> 
-            <div class="aim_block" id="bottom_left"><div class="ballAim"></div></div>
-            <div class="aim_block" id="bottom"><div class="ballAim"></div></div>
-            <div class="aim_block" id="bottom_right"><div class="ballAim"></div></div>
-        </div>
-    </div>
+    
     
     <div class="shotTime">
         <input type="text" placeholder="#put time" class="shotTimeInput">
@@ -52,12 +60,12 @@
         <button class="close_shotTime"> X</button>
     </div>
 
-    <div class="BlackScreen BlackOff">
+    
 
     </div>
 
   
-    
+
     <script src="js/script.js"></script>
 </body>
 </html>

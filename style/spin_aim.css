@@ -1,8 +1,8 @@
 .ball{
-    display: none; 
+    /* display: none;  */
     
     position: absolute;
-    right: 100px;
+    /* right: 100px; */
     width: 150px;
     height: 150px;   
    background-image: url('../IMG/myBall.png');

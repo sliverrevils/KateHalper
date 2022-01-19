@@ -14,6 +14,8 @@ body{
     height: 100vh;
     background-color: rgb(255, 255, 255);
     padding: 10px 0 20px 0 ;
+    
+    
 }
 .AddItemBlock{
     display: flex;
@@ -80,7 +82,8 @@ button[name="del"]:hover{
 }
 
 .ListItems{
-    padding: 0 10px;
+    padding: 0 0 70px 10px;
+    
     /* border: 1px solid black; */
     
 }a{
@@ -121,10 +124,10 @@ button[name="del"]:hover{
     opacity: .8;
     display: block;
     position: absolute;
-    left: 0px;
-    right: 0px;
-    top: 0px;
-    bottom: 0px;
+    top:0;
+    left:0;
+    right:0;
+    
     z-index: 5;
 }
 .BlackOff{
