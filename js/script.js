@@ -13,9 +13,9 @@ const $SHOTTIME = document.querySelector('.shotTime');
 const $BLACK = document.querySelector('.BlackScreen');
 
 //               // BLACK SCREEEN
-const blackScreeToggle = (e) => { 
+const blackScreeToggle = (e) => {
     !e ? $BLACK.classList.add("BlackOff") : $BLACK.classList.remove("BlackOff");
-    $BLACK.style.height=$MainWin.scrollHeight+"px";
+    $BLACK.style.height = $MainWin.scrollHeight + "px";
 };
 
 
@@ -33,19 +33,16 @@ $SHOTTIME.addEventListener('contextmenu', e => pasteClipboard(e))
 
 
 
-
-
-
 //-----------------------------------------------      RENDER SPIN WIN 
-function showBall(id, elOfArr,event) {
+function showBall(id, elOfArr, event) {
     blackScreeToggle(true);
-    console.log(event.pageX,event.pageY);
+    console.log(event.pageX, event.pageY);
 
     $BALL.style.display = "block";// SHOW BALL WINDOW
 
-    $BALL.style.left =event.pageX-70+"px";
-    $BALL.style.top =event.pageY-85+"px";
-    
+    $BALL.style.left = event.pageX - 70 + "px";
+    $BALL.style.top = event.pageY - 85 + "px";
+
     $BALL.style.zIndex = '10';
     const $AIM_BLOCKS = document.querySelectorAll('.aim_block'); // SELECT ALL BLOCKS 
 
@@ -95,10 +92,10 @@ const rndID = (name = "item") => `id_${name}_${Math.random()}`;
 document.addEventListener('click', e => {
     e.target.name == "del" && delItem(e.target.id); // del buttons
     //так находим элемент alt в котором передаем идекс в массиве...
-    e.target.name == "aim" && showBall(e.target.id, e.target.attributes.alt.nodeValue,e);// AIM buttons
+    e.target.name == "aim" && showBall(e.target.id, e.target.attributes.alt.nodeValue, e);// AIM buttons
     e.target.name == "shot" && addShotTime(e);// AIM buttons
     e.target.name == "del_shot" && delShot(e.target.id, e.target.attributes.alt.nodeValue);// DEL SHOT
-    e.target.matches('.shot_item')&&e.target.classList.toggle('shot-marker-yellow'); //marker
+    e.target.matches('.shot_item') &&  addShotStyle(e,true); //marker
 })
 
 
@@ -114,7 +111,7 @@ document.addEventListener('contextmenu', e => {
 
     })();
 
-    e.target.matches('.shot_item')&&e.target.classList.toggle('shot-marker-green'); // SHOT MARKER
+    e.target.matches('.shot_item') && addShotStyle(e); // SHOT MARKER
 })
 
 
@@ -231,6 +228,38 @@ function addShotArr(ID, textTime) {
 
 
 
+// ADD SHOTS STYLE
+// [
+//     {ID,description,link,
+//     shots:[
+//         {time,aim}
+//     ]
+//     }
+// ]
+
+function addShotStyle({ target }, clear = false) {
+    const colorArr = ["white", "springgreen","lightblue", "tomato", "gold","fuchsia"];
+    
+        let videoIdx = target.closest('.itemOfList').dataset.video;
+        let shotIdx = target.dataset.shot;
+
+        
+        
+        let nowCol = listArr[videoIdx].shots[shotIdx].color;
+        let nowColIdx = colorArr.indexOf(nowCol);
+
+        if (!clear) {
+        listArr[videoIdx].shots[shotIdx].color = (nowColIdx<colorArr.length-1)?colorArr[nowColIdx+1]:colorArr[1];
+        target.style.background = listArr[videoIdx].shots[shotIdx].color;
+    }else{
+        listArr[videoIdx].shots[shotIdx].color =colorArr[0];
+        target.style.background = colorArr[0];
+    }
+
+    listRender(); //update list  
+    setST();      // save to ls
+}
+
 
 // 00 час : 06 мин : 48 сек
 //original link https://www.youtube.com/watch?v=sWd1qoZ-DNg
@@ -247,10 +276,11 @@ function calcTimeCode(videoLink, textCode) {
 
 // -------------------------------------------SHOTS LIST 
 function addShotsList(link, id, arr, item) {
+
     let $items = document.querySelector('#' + id);
-    arr && arr.map((el, index) => {
+    arr && arr.map((el, index) => {  //------ DATA _ SHOT - INDEX  
         $items.innerHTML += `
-    <div class="shot_item" id="${item.ID}" name="shot_item">     
+    <div class="shot_item" id="${item.ID}" name="shot_item" data-shot=${index} style="background:${item.shots[index].color}">   
     <button id="${item.ID}" alt="${index}" name="del_shot">X</button>  
     <a href="${calcTimeCode(link, el.time)}" target="_blank">${el.time}</a>    
     <button id="${item.ID}" alt="${index}" name="aim" ${textSpin(item.shots[index].aim) || "style=background:red"}> 🎯</button>   
@@ -265,11 +295,11 @@ function addShotsList(link, id, arr, item) {
 function listRender() {
     $ListItems.innerHTML = '';
     listArr.map((item, index) => {
-        $ListItems.innerHTML += // ITEM HTML
+        $ListItems.innerHTML += // ITEM HTML   //------------------------- DATA - VIDEO _INDEX
             `
-    <div class="itemOfList">
+    <div class="itemOfList" data-video=${index}>               
     
-    <div class="videoLink">
+    <div class="videoLink" >
     <button id="${item.ID}" name="del" >X </button> 
     <a href="${item.link}" target="_blank">${item.link}</a>
        "${item.description}"

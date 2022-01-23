@@ -176,11 +176,9 @@ button{
     transform: scaleX(120%);
 }
 
-.shot-marker-green{
-    background-color:springgreen;
-}
+
 
 .shot-marker-yellow{
-    background-color:rgba(255, 99, 71,.4);
+    background-color:lightblue;
     color:white;
 }
