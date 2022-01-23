@@ -98,6 +98,7 @@ document.addEventListener('click', e => {
     e.target.name == "aim" && showBall(e.target.id, e.target.attributes.alt.nodeValue,e);// AIM buttons
     e.target.name == "shot" && addShotTime(e);// AIM buttons
     e.target.name == "del_shot" && delShot(e.target.id, e.target.attributes.alt.nodeValue);// DEL SHOT
+    e.target.matches('.shot_item')&&e.target.classList.toggle('shot-marker-yellow'); //marker
 })
 
 
@@ -113,6 +114,7 @@ document.addEventListener('contextmenu', e => {
 
     })();
 
+    e.target.matches('.shot_item')&&e.target.classList.toggle('shot-marker-green'); // SHOT MARKER
 })
 
 
