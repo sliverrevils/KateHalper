@@ -1,8 +1,8 @@
 const $MainWin = document.querySelector(".MainWin");
 //$MainWin.scrollHeight
 
-const $AddLinkInput = document.querySelector("#AddLinkInput");
-const $AddDescriptionInput = document.querySelector("#AddDescriptionInput");
+const $AddLinkInput = document.querySelector(".AddLinkInput");
+const $AddDescriptionInput = document.querySelector(".AddDescriptionInput");
 const $ListItems = document.querySelector(".ListItems");
 const $AddItemBtn = document.querySelector("#AddItemBtn");
 
@@ -88,7 +88,7 @@ const textSpin = spin => {
 //GET RANDOM ID
 const rndID = (name = "item") => `id_${name}_${Math.random()}`;
 
-//---------------------------------LEFT-CLICKS CHECKER
+//--------------------------------------------------------------------------------------------LEFT-CLICKS CHECKER
 document.addEventListener('click', e => {
     e.target.name == "del" && delItem(e.target.id); // del buttons
     //так находим элемент alt в котором передаем идекс в массиве...
@@ -101,7 +101,7 @@ document.addEventListener('click', e => {
 
 
 
-//-------------------------------- RIGHT-CLICKS CHECKER
+//------------------------------------------------------------------------------------------- RIGHT-CLICKS CHECKER
 document.addEventListener('contextmenu', e => {
 
     e.target.name == "shot" && (async () => {
@@ -164,8 +164,12 @@ function addItem(link, description) {
 
     $AddLinkInput.value = '';
     $AddDescriptionInput.value = '';
+
+    document.documentElement.scrollTop=document.documentElement.scrollHeight+20;
+
     listRender();
     setST();
+
 }
 
 //DEL FROM ARR FUNC
