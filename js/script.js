@@ -1,14 +1,17 @@
 const $MainWin = document.querySelector(".MainWin");
 //$MainWin.scrollHeight
 
-const $AddLinkInput = document.querySelector(".AddLinkInput");
-const $AddDescriptionInput = document.querySelector(".AddDescriptionInput");
+
 const $ListItems = document.querySelector(".ListItems");
 const $AddItemBtn = document.querySelector("#AddItemBtn");
 
 const $AIM_BTN = document.querySelector('#spin_aim_btn');
 const $BALL = document.querySelector('.ball');
 const $SHOTTIME = document.querySelector('.shotTime');
+
+
+const $AddLinkInput = document.querySelector(".AddLinkInput");
+const $AddDescriptionInput = document.querySelector(".AddDescriptionInput");
 
 const $BLACK = document.querySelector('.BlackScreen');
 
